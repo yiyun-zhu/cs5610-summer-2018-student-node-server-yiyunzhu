@@ -11,7 +11,8 @@ var session = require('express-session');
 app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: 'any string'
+    secret: 'any string',
+    // cookie: {maxAge: 60000}
 }));
 
 app.use(function(req, res, next) {
@@ -26,5 +27,9 @@ app.use(function(req, res, next) {
 });
 
 require('./services/user.service.server')(app);
+require('./services/section.service.server')(app);
 
+// app.get('/', function (req, res) {
+//     res.send('Hello World')
+// });
 app.listen(4000);
