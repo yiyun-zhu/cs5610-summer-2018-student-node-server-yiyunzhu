@@ -11,6 +11,12 @@ function findSectionsForStudent(studentId) {
         .populate('section')
         .exec();
 }
+function findStudentsForSection(sectionId) {
+    return enrollmentModel
+        .find({section: sectionId})
+        .populate('student')
+        .exec();
+}
 
 function findEnrollment(enrollment) {
     return enrollmentModel.findOne(enrollment);
@@ -25,6 +31,7 @@ function unenrollStudentFromSection(enrollment) {
 }
 
 module.exports = {
+    findStudentsForSection: findStudentsForSection,
     unenrollStudentFromSection: unenrollStudentFromSection,
     findSectionsForStudent: findSectionsForStudent,
     findEnrollment: findEnrollment,

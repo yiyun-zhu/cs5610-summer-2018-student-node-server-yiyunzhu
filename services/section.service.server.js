@@ -6,10 +6,18 @@ module.exports = function (app) {
     app.delete('/api/section/:sectionId', removeSection);
     app.delete('/api/student/section/:sectionId', unenrollStudentFromSection);
     app.put('/api/section/:sectionId', updateSection);
+    app.get('/api/section/:sectionId/student', findStudentsForSection);
 
     var sectionModel = require('../models/section/section.model.server');
     var enrollmentModel = require('../models/enrollment/enrollment.model.server');
 
+    function findStudentsForSection(req, res) {
+        var sectionId = req.params.sectionId;
+        enrollmentModel
+            .findStudentsForSection(sectionId)
+            .then(enrollments =>
+            res.json(enrollments));
+    }
     function updateSection(req, res) {
         var update = req.body;
         var sectionId = req.params.sectionId;
@@ -52,6 +60,8 @@ module.exports = function (app) {
                 .findSectionsForStudent(currentUser._id)
                 .then(enrollments =>
                     res.json(enrollments));
+        } else {
+            res.send(currentUser);
         }
     }
 
