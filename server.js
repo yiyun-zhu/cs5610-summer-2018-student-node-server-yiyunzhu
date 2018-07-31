@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/cs5610-student-app', {useNewUrlParser: true});
+mongoose.connect('mongodb://heroku_f0305hvv:ilvktr3i0blhp0rqm72ef9e78h@ds159641.mlab.com:59641/heroku_f0305hvv', {useNewUrlParser: true});
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -32,4 +32,4 @@ require('./services/section.service.server')(app);
 // app.get('/', function (req, res) {
 //     res.send('Hello World')
 // });
-app.listen(4000);
+app.listen(process.env.PORT || 4000);
